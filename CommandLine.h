@@ -15,6 +15,7 @@ using namespace std;
 class CommandLine {
 	
 	string id;
+
 	System* sys;
 	Command* command;
 	unordered_map <string, function<Command*()>> factory_command;
