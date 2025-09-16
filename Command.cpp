@@ -17,7 +17,7 @@ int Command::exec() {
 	if (!passedArgs.empty()) {
 		cout << "args: " << endl;
 		for (string& str : passedArgs) {
-			cout << str << " ";
+			cout << str << '\n';
 		}
 		cout << '\n';
 	}
@@ -37,12 +37,13 @@ int NoCommand::exec() {
 // cd
 CommandCD::CommandCD() {
 	this->name = "cd";
-	validArgs = {"-h","-a","WAY"};
+	validArgs = {"-h","-a","WAY","AAA BBB CCC"};
 }
 
 
 int CommandCD::parseArgs() {
 	for (string& arg : passedArgs) {
+		//cout << "Arg " << arg << endl;
 		if (find(validArgs.begin(), validArgs.end(), arg) == validArgs.end()) {
 			return -2;
 		}
@@ -73,12 +74,12 @@ int CommandEXIT::parseArgs() {
 // ls
 CommandLS::CommandLS() {
 	this->name = "ls";
-	validArgs = {"-h","-a"};
+	validArgs = {"-h","-a","AAA BBB CCC"};
 }
 
 int CommandLS::parseArgs() {
 	for (string& arg : passedArgs) {
-		if (find(validArgs.begin(), validArgs.end(), arg) == validArgs.end()) {
+		if ((find(validArgs.begin(), validArgs.end(), arg) == validArgs.end()) and !sys->isPath(arg)) {
 			return -2;
 		}
 	}

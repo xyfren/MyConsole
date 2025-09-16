@@ -23,35 +23,35 @@ public:
 };
 
 class NoCommand :public Command {
-	int parseArgs() { return 0; };
+	int parseArgs() override { return 0; };
 public:
 	NoCommand(string name);
 	
-	int exec();
+	int exec() override;
 	
 };
 
 class CommandCD: public Command {
-	int parseArgs();
+	int parseArgs() override;
 public:
 	CommandCD();
 
-	//int exec();
+	//int exec() override;
 };
 
 class CommandEXIT : public Command {
-	int parseArgs();
+	int parseArgs() override;
 public:
 	CommandEXIT();
 
-	int exec();
+	int exec() override;
 };
 
 class CommandLS : public Command {
-	int parseArgs();
+	int parseArgs() override;
 public:
 	CommandLS();
 
-	//int exec();
+	//int exec() override;
 	
 };
