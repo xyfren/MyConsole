@@ -154,8 +154,8 @@ int CommandLine::parseStartArgs() {
         }
     }
     if (sys->vfsFile == "") {
-        //return -4;
-        sys->vfsFile = "C:\\Users\\mikha\\source\\repos\\MyConsole\\root";
+        return -4;
+        //sys->vfsFile = "C:\\Users\\mikha\\source\\repos\\MyConsole\\root";
     }
     return 0;
 }

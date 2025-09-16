@@ -1,0 +1,5 @@
+cd -h
+cd "AAA BBB CCC"
+fsdsa
+ls -a 
+cd WAY

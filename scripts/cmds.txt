@@ -1,0 +1,4 @@
+cd -h
+cd
+ls -h
+ls
