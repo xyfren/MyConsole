@@ -31,7 +31,7 @@ private:
 	
 	int parseCommand(string& cmd);
 	int createNewCommand(string& key);
-	int parseStartArgs();
+	//int parseStartArgs();
 	int runStartScript();
 };
 
