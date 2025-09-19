@@ -25,18 +25,18 @@ CommandLine::CommandLine(int argc,char *argv[]) {
 
 int CommandLine::start() {
     int res;
-    //res = parseStartArgs();
-    //if (res < 0) {
-    //    if (res == -1)
-    //        cerr << "Неверные аргументы коммандной строки";
-    //    else if (res == -2)
-    //        cerr << "Указано неверное значение аргумента";
-    //    else if (res == -3)
-    //        cerr << "Повторное указание аргумента";
-    //    else if (res == -4)
-    //        cerr << "Не указан обязательный аргумент -vfs";
-    //    return 1;
-    //}
+    res = parseStartArgs();
+    if (res < 0) {
+        if (res == -1)
+            cerr << "Неверные аргументы коммандной строки";
+        else if (res == -2)
+            cerr << "Указано неверное значение аргумента";
+        else if (res == -3)
+            cerr << "Повторное указание аргумента";
+        else if (res == -4)
+            cerr << "Не указан обязательный аргумент -vfs";
+        return 1;
+    }
     
     sys->isRunning = true;
     
@@ -124,42 +124,42 @@ int CommandLine::createNewCommand(string& key) {
     return -1;
 }
 
-//int CommandLine::parseStartArgs() {
-//    for (int i = 1; i < argc; ++i) {
-//        if (argv[i] == "-vfs") {
-//            if (sys->vfsFile != "") {
-//                return -3;
-//            }
-//            i++;
-//            if (i < argc and sys->isPath(argv[i])) {
-//                sys->vfsFile = argv[i];
-//            }
-//            else {
-//                return -2;
-//            }
-//        }
-//        else if (argv[i] == "-ss") {
-//            if (startScriptFile != "") {
-//                return -3;
-//            }
-//            i++;
-//            if (i < argc and sys->isPath(argv[i])) {
-//                startScriptFile = argv[i];
-//            }
-//            else {
-//                return -2;
-//            }
-//        }
-//        else {
-//            return -1;
-//        }
-//    }
-//    if (sys->vfsFile == "") {
-//        return -4;
-//        //sys->vfsFile = "C:\\Users\\mikha\\source\\repos\\MyConsole\\root";
-//    }
-//    return 0;
-//}
+int CommandLine::parseStartArgs() {
+    for (int i = 1; i < argc; ++i) {
+        if (argv[i] == "-vfs") {
+            if (sys->vfsFile != "") {
+                return -3;
+            }
+            i++;
+            if (i < argc and sys->isPath(argv[i])) {
+                sys->vfsFile = argv[i];
+            }
+            else {
+                return -2;
+            }
+        }
+        else if (argv[i] == "-ss") {
+            if (startScriptFile != "") {
+                return -3;
+            }
+            i++;
+            if (i < argc and sys->isPath(argv[i])) {
+                startScriptFile = argv[i];
+            }
+            else {
+                return -2;
+            }
+        }
+        else {
+            return -1;
+        }
+    }
+    if (sys->vfsFile == "") {
+        return -4;
+        //sys->vfsFile = "C:\\Users\\mikha\\source\\repos\\MyConsole\\root";
+    }
+    return 0;
+}
 
 int CommandLine::runStartScript() {
     ifstream file(startScriptFile, ios::in);
