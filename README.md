@@ -115,6 +115,116 @@ fsdsa
 ls -a 
 cd WAY
 ```
+
+## Этап 3: VFS
+
+### Реализованная функциональность
+
+1. **Создание файловой системы в памяти**
+Программа считывает всё, что находится внутри каталога указаного в параметре -vfs и строит системное древо из папок и файлов в памяти.
+2. **Вывод созданного древа с помощью новой служебной команды tree**
+Команда выводит древо виртуальной файловой системы от корня(корнем считается любая существующая в реальной файловой системе папка,указанная в параметре -vfs)
+3. **Готовые тесты из реальной ОС**
+В папку real_scripts добавлены .bat скрипты для тестирования программы с запуском разных параметров
+4. **Стартовый скприп для тестирования всего функционала**
+В папку virtual_scripts добавлен файл test_all.txt c набором команд для тестирования всего функционала
+
+### Примеры использования
+#### Запуск test1.bat
+```bash
+C:\Users\mikha\source\repos\MyConsole\real_scripts>C:\Users\mikha\source\repos\MyConsole\x64\Debug\MyConsole.exe -vfs "C:\Users\mikha\source\repos\MyConsole\root1" -ss "C:\Users\mikha\source\repos\MyConsole\virtual_scripts\test_tree.txt"
+VFS определена от каталога:C:\Users\mikha\source\repos\MyConsole\root1
+mikha@MY-LAPTOP:\$ tree
+Root
+|--Eda [D]
+|--Ne Eda.txt [F]
+mikha@MY-LAPTOP:\$
+```
+#### Запуск test2.bat
+```bash
+C:\Users\mikha\source\repos\MyConsole\real_scripts>C:\Users\mikha\source\repos\MyConsole\x64\Debug\MyConsole.exe -vfs "C:\Users\mikha\source\repos\MyConsole\root2" -ss "C:\Users\mikha\source\repos\MyConsole\virtual_scripts\test_tree.txt"
+VFS определена от каталога:C:\Users\mikha\source\repos\MyConsole\root2
+mikha@MY-LAPTOP:\$ tree
+Root
+|--Eda [D]
+|  |--Berries [D]
+|  |--chicken.txt [F]
+|  |--Fruits [D]
+|  |--pizza.txt [F]
+|  |--Vegetables [D]
+|--Friends [D]
+|  |--Ivan.txt [F]
+|  |--Kostya.txt [F]
+|  |--Misha.txt [F]
+|--Ne Eda.txt [F]
+mikha@MY-LAPTOP:\$
+```
+#### Запуск test3.bat
+```bash
+C:\Users\mikha\source\repos\MyConsole\real_scripts>C:\Users\mikha\source\repos\MyConsole\x64\Debug\MyConsole.exe -vfs "C:\Users\mikha\source\repos\MyConsole\root3" -ss "C:\Users\mikha\source\repos\MyConsole\virtual_scripts\test_tree.txt"
+VFS определена от каталога:C:\Users\mikha\source\repos\MyConsole\root3
+mikha@MY-LAPTOP:\$ tree
+Root
+|--Eda [D]
+|  |--Berries [D]
+|  |  |--OgorodBerries [D]
+|  |     |--Rasberry.txt [F]
+|  |     |--Strawberry.txt [F]
+|  |--chicken.txt [F]
+|  |--Fruits [D]
+|  |  |--OgorodFruits [D]
+|  |     |--Apple.txt [F]
+|  |     |--Pear.txt [F]
+|  |--pizza.txt [F]
+|  |--Vegetables [D]
+|     |--OgorodVegetables [D]
+|        |--Cucumber.txt [F]
+|        |--Tomato.txt [F]
+|--Friends [D]
+|  |--Ivan.txt [F]
+|  |--Kostya.txt [F]
+|  |--Misha.txt [F]
+|--Ne Eda.txt [F]
+|--University [D]
+   |--People [D]
+   |  |--A lot of people.txt [F]
+   |--Subjects [D]
+      |--Console.txt [F]
+      |--SIAOD.txt [F]
+      |--SIBD.txt [F]
+mikha@MY-LAPTOP:\$
+```
+#### Запуск test4.bat (Запускает стартовый скрипт для тестирования всего функционала)
+Для тестирования ошибок (как сказано в задании) была убрана остановка выполнения стартового скрипта при первой ошибке
+```bash
+C:\Users\mikha\source\repos\MyConsole\real_scripts>C:\Users\mikha\source\repos\MyConsole\x64\Debug\MyConsole.exe -vfs "C:\Users\mikha\source\repos\MyConsole\root1" -ss "C:\Users\mikha\source\repos\MyConsole\virtual_scripts\test_all.txt"
+VFS определена от каталога:C:\Users\mikha\source\repos\MyConsole\root1
+mikha@MY-LAPTOP:\$ cd AAA BBB CCC
+Переданы недопустимые аргументы. Введите cd -h для справки
+mikha@MY-LAPTOP:\$ cd "AAA BBB CCC"
+Команда cd
+args:
+AAA BBB CCC
+
+mikha@MY-LAPTOP:\$ ls -h
+Команда ls
+args:
+-h
+
+mikha@MY-LAPTOP:\$ ls "-h"
+Команда ls
+args:
+-h
+
+mikha@MY-LAPTOP:\$ tree fdsf
+Команда tree не принимает аргументов
+mikha@MY-LAPTOP:\$ tree
+Root
+|--Eda [D]
+|--Ne Eda.txt [F]
+mikha@MY-LAPTOP:\$
+```
+
 ## Демонстрация работы
 
 ### Скриншоты работы
@@ -124,5 +234,8 @@ cd WAY
 
 ![Запуск со скриптом](screenshots/StartScript.png)
 *Рис. 2: Выполнение эмулятора со стартовым скриптом*
+
+![Пример работы на 3 этапе](screenshots/ThirdStep.png)
+*Рис. 3: Выполнение эмулятора со стартовым скриптом*
 
 Данная реализация обеспечивает базовую функциональность эмулятора командной оболочки с поддержкой интерактивного режима и выполнения скриптов.

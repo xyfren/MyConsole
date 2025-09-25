@@ -130,12 +130,14 @@
   <ItemGroup>
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandLine.cpp" />
+    <ClCompile Include="FileSystemComponent.cpp" />
     <ClCompile Include="MyConsole.cpp" />
     <ClCompile Include="System.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandLine.h" />
+    <ClInclude Include="FileSystemComponent.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemParams.h" />
   </ItemGroup>

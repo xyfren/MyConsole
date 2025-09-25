@@ -79,9 +79,33 @@ CommandLS::CommandLS() {
 
 int CommandLS::parseArgs() {
 	for (string& arg : passedArgs) {
-		if ((find(validArgs.begin(), validArgs.end(), arg) == validArgs.end()) and !sys->isPath(arg)) {
+		if ((find(validArgs.begin(), validArgs.end(), arg) == validArgs.end()) and !sys->isVirtualPath(arg)) {
 			return -2;
 		}
 	}
 	return 0;
+}
+// tree
+CommandTREE::CommandTREE() {
+	this->name = "tree";
+	validArgs = {};
+}
+
+int CommandTREE::exec() {
+	int res = parseArgs();
+	if (res < 0) {
+		return res;
+	}
+
+	sys->buildTree(&sys->root);
+
+	return 0;
+}
+
+int CommandTREE::parseArgs() {
+	if (!passedArgs.empty()) {
+		return -3;
+	}
+	return 0;
+
 }

@@ -8,7 +8,6 @@ using namespace std;
 class Command
 {
 protected:
-	
 	System* sys = 0;
 	vector<string> validArgs;
 	vector<string> passedArgs;
@@ -36,7 +35,7 @@ class CommandCD: public Command {
 public:
 	CommandCD();
 
-	//int exec() override;
+	//int exec() overridez;
 };
 
 class CommandEXIT : public Command {
@@ -54,4 +53,13 @@ public:
 
 	//int exec() override;
 	
+};
+
+class CommandTREE : public Command {
+	int parseArgs() override;
+public:
+	CommandTREE();
+
+	int exec() override;
+
 };

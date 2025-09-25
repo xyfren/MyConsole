@@ -20,6 +20,7 @@ CommandLine::CommandLine(int argc,char *argv[]) {
     factory_command["cd"] = []() { return new CommandCD(); };
     factory_command["ls"] = []() { return new CommandLS(); };
     factory_command["exit"] = []() { return new CommandEXIT(); };
+    factory_command["tree"] = []() { return new CommandTREE(); };
     sys = new System();
 }
 
@@ -37,11 +38,11 @@ int CommandLine::start() {
             cerr << "Не указан обязательный аргумент -vfs";
         return 1;
     }
+    sys->vfsInit();
     
     sys->isRunning = true;
     
-
-    //cout << "VFS:" << sys->vfsFile << endl;
+    cout << "VFS определена от каталога:" << sys->vfsFile << endl;
     if (startScriptFile != "") {
         res = runStartScript();
         if (res < 0) {
@@ -53,7 +54,7 @@ int CommandLine::start() {
     
     string cmd;
     while (sys->isRunning) {
-        cout << Color::CYAN << id << Color::RESET << ":" << sys->path << "$ ";
+        cout << Color::CYAN << id << Color::RESET << ":" << Color::GREEN << sys->path << Color::RESET << "$ ";
         getline(cin, cmd);
         int parserRes = parseCommand(cmd);
         if (parserRes == -1){
@@ -131,7 +132,7 @@ int CommandLine::parseStartArgs() {
                 return -3;
             }
             i++;
-            if (i < argc and sys->isPath(argv[i])) {
+            if (i < argc and sys->isRealPath(argv[i])) {
                 sys->vfsFile = argv[i];
             }
             else {
@@ -143,7 +144,7 @@ int CommandLine::parseStartArgs() {
                 return -3;
             }
             i++;
-            if (i < argc and sys->isPath(argv[i])) {
+            if (i < argc and sys->isRealPath(argv[i])) {
                 startScriptFile = argv[i];
             }
             else {
@@ -168,21 +169,21 @@ int CommandLine::runStartScript() {
     }
     string cmd;
     while (sys->isRunning and getline(file, cmd)) {
-        cout << Color::CYAN << id << Color::RESET << ":" << sys->path << "$ " << cmd << endl;
+        cout << Color::CYAN << id << Color::RESET << ":" << Color::GREEN << sys->path << Color::RESET << "$ " << cmd << endl;
         int parserRes = parseCommand(cmd);
         if (parserRes == -1) {
             cout << "Команда " << command->name << " не найдена." << endl;
-            return -1;
+            //return -1;
         }
 
         int res = command->exec();
         if (res == -2) {
             cout << "Переданы недопустимые аргументы. Введите " << command->name << " -h для справки" << endl;
-            return -1;
+            //return -1;
         }
         else if (res == -3) {
             cout << "Команда " << command->name << " не принимает аргументов" << endl;
-            return -1;
+            //return -1;
         }
     }
     file.close();

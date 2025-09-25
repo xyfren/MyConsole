@@ -1,0 +1,1 @@
+C:\Users\mikha\source\repos\MyConsole\x64\Debug\MyConsole.exe -vfs "C:\Users\mikha\source\repos\MyConsole\root2" -ss "C:\Users\mikha\source\repos\MyConsole\virtual_scripts\test_tree.txt"

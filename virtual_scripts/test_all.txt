@@ -1,0 +1,6 @@
+cd AAA BBB CCC
+cd "AAA BBB CCC"
+ls -h
+ls "-h"
+tree fdsf
+tree
